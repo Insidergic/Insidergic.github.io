@@ -16,6 +16,7 @@ install:
 
 script:
   - echo "Skipping tests"
+  - yarn generate
 
 deploy:
   provider: pages
