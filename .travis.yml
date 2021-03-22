@@ -12,12 +12,9 @@ branches:
 install:
   - npm install
   - npm run generate
-  - npm install -g nuxt
 
 script:
   - echo "Skipping tests"
-  - yarn generate
-  - npm run generate
   - ls -al
 
 deploy:
