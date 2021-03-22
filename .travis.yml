@@ -24,4 +24,4 @@ deploy:
   target-branch: main
   local-dir: dist
   on:
-    branch: main
+    branch: develop
