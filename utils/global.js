@@ -5,11 +5,11 @@
 */
 export default {
   siteUrl: 'https://insidergic.github.io',
-  siteName: 'Starter Blog',
-  author: 'Joe Blogs',
-  twitterHandle: '@joeblogs',
-  twitterURL: 'https://twitter.com/garethredfern',
-  githubURL: 'https://github.com/garethredfern',
+  siteName: 'Insidergic Blog',
+  author: 'Nathan Feitoza',
+  twitterHandle: '@feitoza_nathan',
+  twitterURL: 'https://twitter.com/feitoza_nathan',
+  githubURL: 'https://github.com/nathanfeitoza',
   siteTitle: 'Add Your Main Site Title Here',
   siteDesc:
     'A description for your site here, this will show on the home page.',

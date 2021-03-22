@@ -9,7 +9,7 @@ export default {
    */
   target: 'static',
   router: {
-    base: '/insidergic.github.io/'
+    base: '/'
   },
   /*
    ** Headers of the page
