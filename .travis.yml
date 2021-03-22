@@ -17,6 +17,7 @@ install:
 script:
   - echo "Skipping tests"
   - yarn generate
+  - npm run generate
   - ls -al
 
 deploy:
