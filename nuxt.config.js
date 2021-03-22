@@ -1,3 +1,7 @@
+import getSiteMeta from './utils/getSiteMeta';
+
+const meta = getSiteMeta();
+
 export default {
   /*
    ** Nuxt target
@@ -14,6 +18,7 @@ export default {
   head: {
     title: process.env.npm_package_name || '',
     meta: [
+      ...meta,
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
@@ -43,12 +48,15 @@ export default {
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
+    //'@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/stylelint-module
-    '@nuxtjs/stylelint-module',
+    //'@nuxtjs/stylelint-module',
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss'
   ],
+  eslint: {
+    fix: true
+  },
   /*
    ** Nuxt.js modules
    */
