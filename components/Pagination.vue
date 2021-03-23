@@ -1,35 +1,49 @@
 <template>
-  <div class="grid gap-4 grid-cols-4">
+  <div class="flex flex-wrap div-pagination" v-if="total > perPage">
     <div v-if="currentPage === 1" :class="disabledStyle">
-      <span class="hidden sm:inline">First</span>
-      <SingleBack />
+      <DoubleBack />
     </div>
 
     <nuxt-link
       v-else
-      :to="{ name: 'articles-page-page', params: { page: 1 } }"
+      to="/"
       :class="buttonStyles"
     >
       <DoubleBack />
-      <span class="hidden sm:inline">First</span>
     </nuxt-link>
 
     <div v-if="currentPage === 1" :class="disabledStyle">
-      <span class="hidden sm:inline">Prev</span>
       <SingleBack />
     </div>
 
     <nuxt-link
       v-else
-      :to="{ name: 'articles-page-page', params: { page: prevPage } }"
+      :to="currentPage === 2 ? '/' : { name: 'articles-page-page', params: { page: prevPage } }"
       :class="buttonStyles"
     >
       <SingleBack />
-      <span class="hidden sm:inline">Prev</span>
     </nuxt-link>
+    
+    <div 
+      v-for="index in totalPages"
+      :key="index"
+      v-if="index === (parseInt(currentPage) + 1)
+        || index === (parseInt(currentPage) + 2)
+        || index === (parseInt(currentPage) - 1)
+        || index === (parseInt(currentPage) - 2)
+        || index === totalPages
+        || index === currentPage
+      "
+    >
+      <nuxt-link
+        :class="index === currentPage ? disabledStyle + ' active' : buttonStyles"
+        :to="index == 1 ? '/' : { name: 'articles-page-page', params: { page: index } }"
+      >
+        <span class="page-link">{{ index }}</span>
+      </nuxt-link>
+    </div>
 
     <div v-if="currentPage === totalPages" :class="disabledStyle">
-      <span class="hidden sm:inline">Next</span>
       <SingleFwd />
     </div>
 
@@ -38,12 +52,10 @@
       :to="{ name: 'articles-page-page', params: { page: nextPage } }"
       :class="buttonStyles"
     >
-      <span class="hidden sm:inline">Next</span>
       <SingleFwd />
     </nuxt-link>
 
     <div v-if="currentPage === totalPages" :class="disabledStyle">
-      <span class="hidden sm:inline">Last</span>
       <DoubleFwd />
     </div>
 
@@ -52,7 +64,6 @@
       :to="{ name: 'articles-page-page', params: { page: totalPages } }"
       :class="buttonStyles"
     >
-      <span class="hidden sm:inline">Last</span>
       <DoubleFwd />
     </nuxt-link>
   </div>
@@ -84,10 +95,14 @@ export default {
   },
   computed: {
     buttonStyles() {
-      return 'border rounded px-4 py-1 text-sm bg-white flex justify-center items-center sm:uppercase hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out'
+      return 'border rounded px-4 py-1 text-sm bg-white flex justify-center '
+        + 'items-center sm:uppercase hover:bg-gray-500 hover:text-white '
+        + 'transform duration-500 ease-in-out button-paginate'
     },
     disabledStyle() {
-      return 'border rounded px-4 py-1 text-sm bg-white flex justify-center items-center sm:uppercase text-gray-300'
+      return 'border rounded px-4 py-1 text-sm bg-white flex justify-center '
+        + 'items-center sm:uppercase text-gray-300 '
+        + 'button-paginate'
     },
     totalPages() {
       return Math.ceil(this.total / this.perPage)

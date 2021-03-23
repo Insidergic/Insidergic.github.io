@@ -1,5 +1,5 @@
-const stateDefault = {
-    articlesPerPage: 3,
+export const stateDefault = {
+    articlesPerPage: 5,
 }
 
 export const state = () => stateDefault

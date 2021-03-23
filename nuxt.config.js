@@ -32,7 +32,9 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+    '@/assets/scss/app.scss'
+  ],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
@@ -52,8 +54,15 @@ export default {
     // Doc: https://github.com/nuxt-community/stylelint-module
     //'@nuxtjs/stylelint-module',
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/fontawesome',
   ],
+  fontawesome: {
+    icons: {
+      solid: true,
+      brands: true
+    }
+  },
   eslint: {
     fix: true
   },

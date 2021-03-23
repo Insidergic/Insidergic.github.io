@@ -1,17 +1,11 @@
+import { stateDefault } from '../store/index';
+
 export default async ($content, params, error) => {
   const currentPage = parseInt(params.page)
 
-  const perPage = 3
+  const perPage = stateDefault.articlesPerPage
 
   const allArticles = await $content('articles').fetch()
-
-  const totalArticles = allArticles.length
-
-  // use Math.ceil to round up to the nearest whole number
-  const lastPage = Math.ceil(totalArticles / perPage)
-
-  // use the % (modulus) operator to get a whole remainder
-  const lastPageCount = totalArticles % perPage
 
   const skipNumber = () => {
     if (currentPage === 1) {
@@ -22,7 +16,7 @@ export default async ($content, params, error) => {
   }
 
   const paginatedArticles = await $content('articles')
-    .only(['name', 'description', 'img', 'slug'])
+    .only(['name', 'title', 'description', 'img', 'slug', 'date', 'author', 'tags'])
     .sortBy('createdAt', 'asc')
     .limit(perPage)
     .skip(skipNumber())

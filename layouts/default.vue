@@ -4,7 +4,9 @@
   </div>
 </template>
 
-<style>
+<style type="scss">
+@import '../assets/scss/app.scss';
+
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;

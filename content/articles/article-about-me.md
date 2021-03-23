@@ -3,10 +3,8 @@ title: Article about me
 description: This is a description for the article about me 1
 img: https://images.unsplash.com/photo-1580752300992-559f8e0734e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80
 alt: nice image
-author: 
-  name: Peter
-  bio: All about Peter and what he does and where he works
-  img: https://images.unsplash.com/photo-1533636721434-0e2d61030955?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80
+date: 2021-03-23
+author: Nathan
 tags: 
   - web development
 ---
