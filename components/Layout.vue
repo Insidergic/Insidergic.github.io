@@ -12,8 +12,8 @@
   </section>
 </template>
 
-<style type="sass">
-@import '../assets/scss/app.scss';
+<style>
+@import '../assets/css/build.css';
 </style>
 
 <script>

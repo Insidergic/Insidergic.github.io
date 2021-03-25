@@ -1,0 +1,197 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.article-card {
+  border-radius: 8px;
+}
+
+.article-card a {
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.article-card img div {
+  border-radius: 8px 0 0 8px;
+}
+
+.to-right {
+  float: right;
+}
+
+.div-pagination .button-paginate {
+  border-radius: 50rem;
+  width: 50px;
+  height: 50px;
+  margin-right: 1rem;
+  border-color: #1c1c1c;
+}
+.div-pagination .button-paginate.active {
+  background: #1c1c1c;
+}
+
+.article-tags .tag {
+  margin-right: 1rem;
+}
+
+.sidebar .content-mobile {
+  display: none;
+}
+.sidebar .content-mobile .button-open {
+  outline: 0;
+}
+
+.topics {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media only screen and (max-width: 1120px) {
+  .sidebar .footer {
+    font-size: 0.7rem;
+  }
+}
+@media only screen and (max-width: 850px) {
+  .sidebar {
+    top: 0;
+  }
+  .sidebar .my-regards h2 {
+    font-size: 26px !important;
+  }
+  .sidebar .my-img {
+    width: 45px !important;
+    height: 45px !important;
+    margin-top: 0.6rem !important;
+    margin-left: 0.6rem !important;
+    margin-bottom: 0 !important;
+  }
+  .sidebar .content-mobile {
+    display: block;
+  }
+  .sidebar .content-menu {
+    display: none;
+    width: 100%;
+    background: #1c1c1c;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+    top: 7%;
+    left: 0px;
+  }
+  .sidebar .content-menu .py-1 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .sidebar .content-menu .text-xs {
+    font-size: 1.4rem;
+  }
+  .sidebar .content-menu .mr-3 {
+    margin-right: 0 !important;
+  }
+  .sidebar .content-menu .footer {
+    position: relative;
+  }
+  .sidebar .content-menu .li-my-img {
+    display: none;
+  }
+
+  .container-data {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .container-data .text-4xl {
+    font-size: 1.65rem !important;
+  }
+
+  .app-search {
+    margin-left: 1rem;
+    margin-top: 1rem;
+  }
+
+  .text-info-page {
+    margin-left: 1rem;
+    margin-top: 1rem;
+  }
+
+  .list-articles {
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+  }
+  .list-articles .text-3xl {
+    font-size: 1.5rem;
+  }
+  .list-articles img {
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    margin-right: 0rem;
+    margin-bottom: 1rem;
+  }
+
+  .topics {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .app-search {
+    float: left !important;
+  }
+}
+.sidebar-blog {
+  background: #1c1c1c;
+  font-family: "Montserrat", sans-serif;
+}
+.sidebar-blog li.center {
+  display: flex;
+  justify-content: center;
+}
+.sidebar-blog li a:hover span {
+  color: #fff;
+}
+.sidebar-blog li a span {
+  color: #b3b3b3;
+}
+.sidebar-blog li a[aria-current=page] {
+  border-bottom: 2px solid #c5c5c5;
+}
+.sidebar-blog li a[aria-current=page] span {
+  color: #fff;
+}
+.sidebar-blog .my-img {
+  width: 216px;
+  height: 216px;
+  margin-bottom: 2rem;
+}
+.sidebar-blog .my-img img {
+  border-radius: 50rem;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  filter: grayscale(35%);
+}
+.sidebar-blog .mr-075 {
+  margin-left: 0.75rem;
+}
+.sidebar-blog .my-regards {
+  margin-bottom: 2rem;
+}
+.sidebar-blog .my-regards h2 {
+  font-size: 35px;
+  color: #fff;
+}
+.sidebar-blog .item span {
+  font-weight: 450 !important;
+}
+.sidebar-blog span.icon {
+  margin-right: 1rem;
+}
+.sidebar-blog .footer {
+  color: #7a7a7a;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 1rem;
+}
+
+/*# sourceMappingURL=build.css.map */
