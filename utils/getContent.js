@@ -1,7 +1,7 @@
 import { stateDefault } from '../store/index';
 
-export default async ($content, params, error) => {
-  const currentPage = parseInt(params.page)
+export default async ({ $content, params, error, route }, tags) => {
+  const currentPage = parseInt(params.page || route.query.page);
 
   const perPage = stateDefault.articlesPerPage
 
@@ -15,12 +15,17 @@ export default async ($content, params, error) => {
     return (currentPage - 1) * perPage
   }
 
-  const paginatedArticles = await $content('articles')
+  const dataArticle = $content('articles')
     .only(['name', 'title', 'description', 'img', 'slug', 'date', 'author', 'tags'])
     .sortBy('createdAt', 'asc')
     .limit(perPage)
-    .skip(skipNumber())
-    .fetch()
+    .skip(skipNumber());
+
+  if (tags) {
+    dataArticle.where({ tags: { $contains: tags.name } });
+  }
+
+  const paginatedArticles = await dataArticle.fetch();
 
   if (currentPage === 0 || !paginatedArticles.length) {
     return error({ statusCode: 404, message: 'No articles found!' })

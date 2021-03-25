@@ -14,7 +14,7 @@
       <li v-for="article of articles" :key="article.slug">
         <NuxtLink
           :to="{ name: 'articles-slug', params: { slug: article.slug } }"
-          class="flex px-4 py-2 items-center leading-5 transition ease-in-out duration-150 text-green-500 hover:text-black"
+          class="flex px-4 py-5 items-center leading-5 transition ease-in-out duration-150 text-gray-800 hover:text-black"
         >
           {{ article.title }}
         </NuxtLink>

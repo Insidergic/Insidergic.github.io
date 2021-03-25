@@ -1,7 +1,20 @@
 <template>
   <div class="flex flex-wrap div-pagination" v-if="total > perPage">
+    
     <div v-if="currentPage === 1" :class="disabledStyle">
-      <DoubleBack />
+      <SingleBack />
+    </div>
+
+    <nuxt-link
+      v-else
+      :to="currentPage === 2 ? '/' : routePagination(prevPage)"
+      :class="buttonStyles"
+    >
+      <SingleBack />
+    </nuxt-link>
+
+    <div v-if="currentPage === 1" :class="disabledStyle  + ' active'">
+      <span class="page-link">1</span>
     </div>
 
     <nuxt-link
@@ -9,62 +22,51 @@
       to="/"
       :class="buttonStyles"
     >
-      <DoubleBack />
+      <span class="page-link">1</span>
     </nuxt-link>
 
-    <div v-if="currentPage === 1" :class="disabledStyle">
-      <SingleBack />
-    </div>
-
-    <nuxt-link
-      v-else
-      :to="currentPage === 2 ? '/' : { name: 'articles-page-page', params: { page: prevPage } }"
-      :class="buttonStyles"
-    >
-      <SingleBack />
-    </nuxt-link>
-    
     <div 
       v-for="index in totalPages"
       :key="index"
-      v-if="index === (parseInt(currentPage) + 1)
+      v-if="(index === (parseInt(currentPage) + 1)
         || index === (parseInt(currentPage) + 2)
         || index === (parseInt(currentPage) - 1)
         || index === (parseInt(currentPage) - 2)
-        || index === totalPages
         || index === currentPage
+        ) && index !== 1
+        && index !== totalPages
       "
     >
       <nuxt-link
         :class="index === currentPage ? disabledStyle + ' active' : buttonStyles"
-        :to="index == 1 ? '/' : { name: 'articles-page-page', params: { page: index } }"
+        :to="index == 1 ? '/' : routePagination(index)"
       >
         <span class="page-link">{{ index }}</span>
       </nuxt-link>
     </div>
 
-    <div v-if="currentPage === totalPages" :class="disabledStyle">
-      <SingleFwd />
+    <div v-if="currentPage === totalPages" :class="disabledStyle + ' active'">
+      <span class="page-link">{{ totalPages }}</span>
     </div>
 
     <nuxt-link
       v-else
-      :to="{ name: 'articles-page-page', params: { page: nextPage } }"
+      :to="routePagination(totalPages)"
       :class="buttonStyles"
     >
-      <SingleFwd />
+       <span class="page-link">{{ totalPages }}</span>
     </nuxt-link>
 
     <div v-if="currentPage === totalPages" :class="disabledStyle">
-      <DoubleFwd />
+      <SingleFwd />
     </div>
 
     <nuxt-link
       v-else
-      :to="{ name: 'articles-page-page', params: { page: totalPages } }"
+      :to="routePagination(nextPage)"
       :class="buttonStyles"
     >
-      <DoubleFwd />
+      <SingleFwd />
     </nuxt-link>
   </div>
 </template>
@@ -91,6 +93,24 @@ export default {
     perPage: {
       type: Number,
       default: 5
+    },
+    slugName: {
+      type: String,
+      default: 'articles-page-page'
+    },
+    paginationIsQueryParams: {
+      type: Boolean,
+      default: false
+    }
+  },
+  methods: {
+    routePagination(page) {
+      const dataPage = {};
+
+      dataPage[this.slugName.indexOf('/') === -1 ? 'name' : 'path'] = this.slugName;
+      dataPage[this.paginationIsQueryParams ? 'query' : 'params'] = { page };
+
+      return dataPage;
     }
   },
   computed: {
@@ -117,7 +137,7 @@ export default {
       return this.currentPage < this.totalPages
         ? this.currentPage + 1
         : this.totalPages
-    }
+    },
   }
 }
 </script>

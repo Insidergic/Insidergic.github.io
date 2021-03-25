@@ -1,3 +1,5 @@
+@import './colors.scss';
+
 body {
     font-family: 'Montserrat', sans-serif;
 }
@@ -36,5 +38,129 @@ body {
 .article-tags {
     .tag {
         margin-right: 1rem;
+    }
+}
+
+.sidebar {
+    .content-mobile {
+        display: none;
+
+        .button-open {
+            outline: 0;
+        }
+    }
+}
+
+.topics {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+@media only screen and (max-width: 1120px) {
+    .sidebar {
+        .footer {
+            font-size: .7rem;
+        }
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .sidebar {
+        top: 0;
+        .my-regards {
+            h2 {
+                font-size: 26px !important;
+            }
+        }
+
+        .my-img {
+            width: 45px !important;
+            height: 45px !important;
+            margin-top: .6rem !important;
+            margin-left: .6rem !important;
+            margin-bottom: 0 !important;
+        }
+
+        .content-mobile {
+            display: block;
+        }
+
+        .content-menu {
+            display: none;
+            width: 100%;
+            background: $base-color;
+            flex-direction: column;
+            position: fixed;
+            height: 100%;
+            top: 7%;
+            left: 0px;
+
+            .py-1 {
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+
+            .text-xs {
+                font-size: 1.4rem;
+            }
+
+            .mr-3 {
+                margin-right: 0 !important;
+            }
+
+            .footer {
+                position: relative;
+            }
+
+            .li-my-img {
+                display: none;
+            }
+        }
+    }
+    
+    .container-data {
+        max-width: 100% !important;
+        width: 100% !important;
+
+        .text-4xl {
+            font-size: 1.65rem !important;
+        }
+    }
+
+    .app-search {
+        margin-left: 1rem;
+        margin-top: 1rem;
+    }
+
+    .text-info-page {
+        margin-left: 1rem;
+        margin-top: 1rem;
+    }
+
+    .list-articles {
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+        
+        .text-3xl {
+            font-size: 1.5rem;
+        }
+
+        img {
+            width: 100%;
+            max-width: 100%;
+            object-fit: cover;
+            margin-right: 0rem;
+            margin-bottom: 1rem;
+        }
+    }
+
+    .topics {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .app-search {
+        float: left !important;
     }
 }

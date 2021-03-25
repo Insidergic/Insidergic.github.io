@@ -1,89 +1,59 @@
 <template>
-  <article
-    class="flex lg:h-screen w-screen lg:overflow-hidden xs:flex-col lg:flex-row"
-  >
-    <div class="relative lg:w-1/2 xs:w-full xs:h-84 lg:h-full post-left">
-      <img
-        :src="article.img"
-        :alt="article.alt"
-        class="absolute h-full w-full object-cover"
-      />
-      <div class="overlay"></div>
-      <div class="absolute top-32 left-32 text-white">
-        <NuxtLink to="/"><Logo /></NuxtLink>
-        <div class="mt-16 -mb-3 flex uppercase text-sm">
-          <p class="mr-3">
-            {{ formatDate(article.updatedAt) }}
-          </p>
-          <span class="mr-3">•</span>
-          <p>{{ article.author.name }}</p>
-        </div>
-        <h1 class="text-6xl font-bold">{{ article.title }}</h1>
-        <span v-for="(tag, id) in article.tags" :key="id">
-          <NuxtLink :to="`/articles/tag/${tags[tag].slug}`">
-            <span
-              class="truncate uppercase tracking-wider font-medium text-ss px-2 py-1 rounded-full mr-2 mb-2 border border-light-border dark:border-dark-border transition-colors duration-300 ease-linear"
-            >
-              {{ tags[tag].name }}
-            </span>
-          </NuxtLink>
-        </span>
-      </div>
-      <div class="flex absolute top-3rem right-3rem">
-        <NuxtLink
-          to="/"
-          class="mr-8 self-center text-white font-bold hover:underline"
+ <Layout>
+      <template v-slot:main>
+        <article
+          class="flex w-full"
         >
-          All articles
-        </NuxtLink>
-        <a
-          href="https://nuxtjs.org/blog/creating-blog-with-nuxt-content/tutorial"
-          class="mr-8 self-center text-white font-bold hover:underline"
-        >
-          Tutorial
-        </a>
-        <AppSearchInput />
-      </div>
-    </div>
-    <div
-      class="relative xs:py-8 xs:px-8 lg:py-32 lg:px-16 lg:w-1/2 xs:w-full h-full overflow-y-scroll markdown-body post-right custom-scroll"
-    >
-      <h1 class="font-bold text-4xl">{{ article.title }}</h1>
-      <p>{{ article.description }}</p>
-      <p class="pb-4">Post last updated: {{ formatDate(article.updatedAt) }}</p>
-      <!-- table of contents -->
-      <nav class="pb-6">
-        <ul>
-          <li
-            v-for="link of article.toc"
-            :key="link.id"
-            :class="{
-              'font-semibold': link.depth === 2
-            }"
-          >
-            <nuxtLink
-              :to="`#${link.id}`"
-              class="hover:underline"
-              :class="{
-                'py-2': link.depth === 2,
-                'ml-2 pb-2': link.depth === 3
-              }"
-              >{{ link.text }}</nuxtLink
-            >
-          </li>
-        </ul>
-      </nav>
-      <!-- content from markdown -->
-      <nuxt-content :document="article" />
-      <!-- content author component -->
-      <author :author="article.author" />
-      <!-- prevNext component -->
-      <PrevNext :prev="prev" :next="next" class="mt-8" />
-    </div>
-  </article>
+          <div class="w-full">
+            <h1 class="font-bold text-4xl">{{ article.title }}</h1>
+            <p class="text-xl text-gray-700 font-medium">{{ article.description }}</p>
+            <p class="text-1xl text-gray-500 font-medium">{{ dayjs(article.date).format('MMM DD, YYYY') }} · {{ article.author }}</p>
+            <p v-if="article.updatedAt" class="text-1xl text-gray-500 font-medium">Post last updated: {{ formatDate(article.updatedAt) }}</p>
+            <div class="flex mt-4 mb-4 items-center article-tags">
+              <NuxtLink
+                v-for="(tag, key) in article.tags"
+                :key="key"
+                class="text-sm mr-4 py-1 pr-1 pl-1 bg-gray-800 text-white rounded-md"
+                :to="`/articles/tag/${tags[tag].slug}`"
+              >
+                {{ tag }}
+              </NuxtLink>
+            </div>
+            <div class="w-full h-55 bg-fixed bg-contain bg-center" :style="`background-image: url(${article.img})`">
+              <div class="h-64"></div>
+            </div>
+            <!-- table of contents -->
+            <nav class="rounded w-1/4 bg-gray-200 pt-4 m-2 overflow-hidden topics" v-if="article.toc">
+              <h3 class="font-bold mb-2 mx-3 py-2 px-3 rounded bg-gray-300 text-gray-800">Topics</h3>
+              <div
+                v-for="(link, index) of article.toc"
+                :key="index"
+              >
+                <div class="flex items-center border-b border-gray-300 cursor-pointer hover:bg-gray-300 text-gray-700 hover:text-gray-900 px-4 py-1">
+                  <nuxtLink
+                    :to="`#${link.id}`"
+                    class="hover:underline"
+                    :class="{
+                      'py-2': link.depth === 2,
+                      'ml-2 pb-2': link.depth === 3
+                    }"
+                    >{{ index + 1 }}. {{ link.text }}</nuxtLink
+                  >
+                </div>
+              </div>
+            </nav>
+            <!-- content from markdown -->
+            <nuxt-content :document="article" />
+            <!-- prevNext component -->
+            <PrevNext :prev="prev" :next="next" class="mt-8 mb-8" />
+          </div>
+        </article>
+      </template>
+  </Layout>
 </template>
 <script>
 import getSiteMeta from '@/utils/getSiteMeta';
+import dayjs from 'dayjs';
 
 export default {
   async asyncData({ $content, params }) {
@@ -121,7 +91,8 @@ export default {
     formatDate(date) {
       const options = { year: 'numeric', month: 'long', day: 'numeric' }
       return new Date(date).toLocaleDateString('en', options)
-    }
+    },
+    dayjs: (val) => dayjs(val)
   }
 }
 </script>

@@ -6,16 +6,17 @@
         v-for="article of articles"
         :key="article.slug"
       >
-        <NuxtLink
-          :to="{ name: 'articles-slug', params: { slug: article.slug } }"
-          class="flex items-center m-2 p-2"
+        <div
+          class="flex items-center m-2 p-2 list-articles"
         >
           <img
             class="w-24 h-24 mr-8"
             :src="article.img"
           />
           <div>
-            <h3 class="text-3xl text-gray-900 font-medium">{{ article.title }}</h3>
+            <h3 class="text-3xl text-gray-900 font-medium">
+              <NuxtLink :to="{ name: 'articles-slug', params: { slug: article.slug } }">{{ article.title }}</NuxtLink>
+            </h3>
             <p class="text-1xl text-gray-500 font-medium">{{ dayjs(article.date).format('MMM DD, YYYY') }} · {{ article.author }}</p>
             <div class="flex items-center article-tags">
               <div
@@ -30,42 +31,22 @@
               {{ (article.description || '').substr(0, 255) }}
             </p>
             <p class="font-bold text-blue-600 mt-2">
-              Read more<span class="text-blue-600">&hellip;</span>
+              <NuxtLink :to="{ name: 'articles-slug', params: { slug: article.slug } }">
+                Read more<span class="text-blue-600">&hellip;</span>
+              </NuxtLink>
             </p>
           </div>
-        </NuxtLink>
+        </div>
       </div>
     </div>
-    <!-- <ul class="flex flex-wrap">
-      <li
-        v-for="article of articles"
-        :key="article.slug"
-        class="xs:w-full md:w-1/2 px-2 xs:mb-6 md:mb-12 article-card"
-      >
-        <NuxtLink
-          :to="{ name: 'articles-slug', params: { slug: article.slug } }"
-          class="md:grid md:gap-4 md:grid-cols-2"
-        >
-          <img
-            v-if="article.image"
-            :src="article.image"
-            alt=""
-            class="mb-4 border rounded"
-          />
-          <div>
-            <h2 class="font-bold text-gray-900 text-2xl mb-2">
-              {{ article.title }}
-            </h2>
-            <p class="text-lg">{{ article.description }}</p>
-            <p class="font-bold text-indigo-600 mt-2">
-              Read more<span class="text-indigo-600">&hellip;</span>
-            </p>
-          </div>
-        </NuxtLink>
-      </li>
-    </ul> -->
     <div v-if="total" class="constainer mx-auto my-5 max-w-5xl">
-      <Pagination v-if="total > 5" :total="total" :perPage="$store.state.articlesPerPage"/>
+      <Pagination
+        v-if="total > 5"
+        :total="total"
+        :perPage="$store.state.articlesPerPage"
+        :paginationIsQueryParams="paginationIsQueryParams"
+        :slugName="slugNamePagination"
+      />
     </div>
   </div>
 </template>
@@ -87,6 +68,14 @@ export default {
     total: {
       type: Number,
       default: 0
+    },
+    slugNamePagination: {
+      type: String,
+      default: 'articles-page-page'
+    },
+    paginationIsQueryParams: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
